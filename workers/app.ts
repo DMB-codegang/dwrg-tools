@@ -1,4 +1,7 @@
 import { createRequestHandler } from "react-router";
+import type { Env } from "./type";
+
+import rankleApiRequest from "./api/rank/index"
 
 declare module "react-router" {
   export interface AppLoadContext {
@@ -16,6 +19,12 @@ const requestHandler = createRequestHandler(
 
 export default {
   async fetch(request, env, ctx) {
+    const url = new URL(request.url);
+    
+    if (url.pathname.startsWith('/api/') && url.pathname !== '/api') {
+      return await rankleApiRequest(request, env, url);
+    }
+
     return requestHandler(request, {
       cloudflare: { env, ctx },
     });

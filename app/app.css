@@ -1,9 +1,11 @@
-@import "tailwindcss" source(".");
+@import "tailwindcss";
+
+@custom-variant dark (&:is(.dark *));
 
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-}
+};
 
 html,
 body {
@@ -12,4 +14,34 @@ body {
   @media (prefers-color-scheme: dark) {
     color-scheme: dark;
   }
+};
+
+/* 定义CSS变量 */
+:root {
+  --primary-color: #1890ff;
+  --bg-color: #ffffff;
+  --text-color: #333333;
+  --border-color: #f0f0f0;
+}
+
+/* 暗黑模式变量 */
+.dark {
+  --primary-color: #177ddc;
+  --bg-color: #141414;
+  --text-color: #ffffff;
+  --border-color: #434343;
+}
+
+/* 应用变量到全局 */
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: all 0.3s ease;
+}
+
+/* 自定义组件可以使用这些变量 */
+.custom-component {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
 }

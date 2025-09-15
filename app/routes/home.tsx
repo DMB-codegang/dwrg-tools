@@ -3,8 +3,8 @@ import { Welcome } from "../welcome/welcome";
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "New React Router App" },
-    { name: "description", content: "Welcome to React Router!" },
+    { title: "DWRG Tools - 第五人格数据查询工具" },
+    { name: "description", content: "第五人格数据查询工具，查询第五人格玩家数据，角色数据，游戏数据" },
   ];
 }
 
@@ -12,6 +12,6 @@ export function loader({ context }: Route.LoaderArgs) {
   return { message: context.cloudflare.env.VALUE_FROM_CLOUDFLARE };
 }
 
-export default function Home({ loaderData }: Route.ComponentProps) {
-  return <Welcome message={loaderData.message} />;
+export default function Home() {
+  return <Welcome/>;
 }
