@@ -1,4 +1,5 @@
-import { Typography, Spin, message } from 'antd';
+import { Typography, message } from 'antd';
+import { motion } from 'framer-motion';
 import { useState } from 'react';
 
 import type { Route } from "./+types/index";
@@ -28,7 +29,7 @@ export default function QueryPage() {
       if (searchParams.part) params.append('part', searchParams.part);
       if (searchParams.season) params.append('season', searchParams.season);
       if (searchParams.name) params.append('name', searchParams.name);
-      if (searchParams.camp_id!=0 && searchParams.camp_id!=null) params.append('camp_id', searchParams.camp_id);
+      if (searchParams.camp_id != 0 && searchParams.camp_id != null) params.append('camp_id', searchParams.camp_id);
 
       const response = await fetch(`/api/rank/search?${params.toString()}`);
       const result: any = await response.json();
@@ -50,9 +51,27 @@ export default function QueryPage() {
 
   return (
     <Layout headerTitle="DWRG Tools">
-      <Title level={1} style={{ textAlign: 'center' }}>排位数据查询器</Title>
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3 }}
+      >
+        <Title level={1} style={{ textAlign: 'center' }}>排位数据查询器</Title>
+      </motion.div>
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3, delay: 0.2 }}
+      >
       <QueryForm onSearch={handleSearch} loading={loading} />
+      </motion.div>
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3, delay: 0.4 }}
+      >
       <DataView data={searchData} loading={loading} />
+      </motion.div>
     </Layout>
   );
 }

@@ -148,7 +148,7 @@ export const DataViewLine: React.FC<DataViewLineProps> = ({ data, metricType }) 
           alignItems: 'center',
           gap: '16px'
         }}>
-          <InboxOutlined spin={true} style={{fontSize: '64px'}}/>
+          <InboxOutlined style={{fontSize: '64px'}}/>
           <div>No data</div>
         </div>
       ) : (

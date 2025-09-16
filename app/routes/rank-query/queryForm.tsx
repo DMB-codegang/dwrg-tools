@@ -1,5 +1,6 @@
 import { Card, Form, Select, Spin, Alert, Typography, Button } from "antd";
 import { useEffect, useState } from "react";
+import { motion } from 'framer-motion';
 
 const { Title } = Typography;
 
@@ -22,8 +23,8 @@ interface HeroResponse {
 }
 
 interface QueryFormProps {
-  onSearch: (values: any) => void;
-  loading: boolean;
+    onSearch: (values: any) => void;
+    loading: boolean;
 }
 
 export function QueryForm({ onSearch, loading }: QueryFormProps) {
@@ -116,69 +117,100 @@ export function QueryForm({ onSearch, loading }: QueryFormProps) {
 
     return (
         <Card>
-            <Title level={2} style={{ marginBottom: '18px' }}>查询条件</Title>
 
+            <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.3, delay: 0.1 }}
+            >
+                <Title level={2} style={{ marginBottom: '18px' }}>查询条件</Title>
+            </motion.div>
             <Form form={form} onValuesChange={handleValuesChange} onFinish={handleSubmit}>
-                <Form.Item label="筛选阵营" name="camp_id">
-                    <Select
-                        placeholder="请选择阵营"
-                        options={[
-                            { value: 0, label: '全部' },
-                            { value: 1, label: '监管者' },
-                            { value: 2, label: '求生者' },
-                        ]}
-                        style={{ maxWidth: 100 }}
-                    />
-                </Form.Item>
-                <Form.Item label="筛选角色" name="name">
-                    <Select
-                        placeholder="请选择角色，不填入查询所有角色"
-                        options={filteredHeroOptions}
-                        mode="multiple"
-                        tokenSeparators={[',','，','|','/','、']}
-                        showSearch={true}
-                        filterSort={(optionA, optionB) =>
-                            (optionA?.label ?? '').toLowerCase().localeCompare((optionB?.label ?? '').toLowerCase())
-                        }
-                        defaultValue={0}
-                        optionFilterProp="label"
-                        style={{ maxWidth: 600 }}
-                    />
-                </Form.Item>
-                <Form.Item label="选择赛季" name="season">
-                    <Select
-                        placeholder="请选择赛季，不填入查询所有赛季"
-                        options={seasonOptions}
-                        mode="multiple"
-                        tokenSeparators={[',','，','|','/','、']}
-                        showSearch={true}
-                        style={{ maxWidth: 600 }}
-                    />
-                </Form.Item>
-                <Form.Item label="筛选段位" name="part">
-                    <Select
-                        placeholder="请选择段位，不填入查询所有段位"
-                        options={[
-                            { value: 1, label: '一阶' },
-                            { value: 2, label: '二阶' },
-                            { value: 3, label: '三阶' },
-                            { value: 4, label: '四阶' },
-                            { value: 5, label: '五阶' },
-                            { value: 6, label: '六阶' },
-                            { value: 7, label: '七阶' },
-                            { value: 8, label: '巅峰七阶' },
-                        ]}
-                        mode="multiple"
-                        tokenSeparators={[',','，','|','/','、']}
-                        style={{ maxWidth: 600 }}
-                    />
-                </Form.Item>
+                <motion.div
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.3, delay: 0.2 }}
+                >
+                    <Form.Item label="筛选阵营" name="camp_id">
+                        <Select
+                            placeholder="请选择阵营"
+                            options={[
+                                { value: 0, label: '全部' },
+                                { value: 1, label: '监管者' },
+                                { value: 2, label: '求生者' },
+                            ]}
+                            defaultValue={0}
+                            style={{ maxWidth: 100 }}
+                        />
+                    </Form.Item>
+                </motion.div>
+                <motion.div
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.3, delay: 0.3 }}
+                >
+                    <Form.Item label="筛选角色" name="name">
+                        <Select
+                            placeholder="请选择角色，不填入查询所有角色"
+                            options={filteredHeroOptions}
+                            mode="multiple"
+                            tokenSeparators={[',', '，', '|', '/', '、']}
+                            showSearch={true}
+                            filterSort={(optionA, optionB) =>
+                                (optionA?.label ?? '').toLowerCase().localeCompare((optionB?.label ?? '').toLowerCase())
+                            }
+                            optionFilterProp="label"
+                            style={{ maxWidth: 600 }}
+                        />
+                    </Form.Item>
+                </motion.div>
+                <motion.div
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.3, delay: 0.4 }}
+                >
+                    <Form.Item label="筛选赛季" name="season">
+                        <Select
+                            placeholder="请选择赛季，不填入查询所有赛季"
+                            options={seasonOptions}
+                            mode="multiple"
+                            tokenSeparators={[',', '，', '|', '/', '、']}
+                            showSearch={true}
+                            style={{ maxWidth: 600 }}
+                        />
+                    </Form.Item>
+                </motion.div>
+
+                <motion.div
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.3, delay: 0.5 }}
+                >
+                    <Form.Item label="筛选段位" name="part">
+                        <Select
+                            placeholder="请选择段位，不填入查询所有段位"
+                            options={[
+                                { value: 1, label: '一阶' },
+                                { value: 2, label: '二阶' },
+                                { value: 3, label: '三阶' },
+                                { value: 4, label: '四阶' },
+                                { value: 5, label: '五阶' },
+                                { value: 6, label: '六阶' },
+                                { value: 7, label: '七阶' },
+                                { value: 8, label: '巅峰七阶' },
+                            ]}
+                            mode="multiple"
+                            tokenSeparators={[',', '，', '|', '/', '、']}
+                            style={{ maxWidth: 600 }}
+                        />
+                    </Form.Item>
+                </motion.div>
                 <Form.Item>
                     <Button type="primary" htmlType="submit" loading={loading}>
-                      查询
+                        查询
                     </Button>
                     <Button type="link" onClick={handleReset}>
-                      重置
+                        重置
                     </Button>
                 </Form.Item>
             </Form>
