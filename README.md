@@ -5,7 +5,7 @@
 
 DWRG Tools 是一个用于查询第五人格游戏数据的全栈项目。项目提供良好的UI界面和完善的api调用。
 
-站点：[**点击直达**](https://dwrg.codegang.top)
+站点：[**点击直达➡️**](https://dwrg.codegang.top)
 
 ## api列表：
 
