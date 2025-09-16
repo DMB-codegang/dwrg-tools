@@ -53,7 +53,7 @@ export function QueryForm({ onSearch, loading }: QueryFormProps) {
                 const heroResult: HeroResponse = await heroResponse.json();
                 const seasonResult: SeasonResponse = await seasonResponse.json();
 
-                if (heroResult.code === 0 && seasonResult.code === 0) {
+                if (heroResult.code === 200 && seasonResult.code === 200) {
                     setHeroList(heroResult.data || []);
                     setSeasonList(seasonResult.data || []);
                 } else {
