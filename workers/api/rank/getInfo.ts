@@ -44,7 +44,7 @@ export async function getAllHero(env: Env, params: HeroQueryParams): Promise<Res
     const { results } = await query.run() as { results: HeroData[] };
 
     return {
-        code: 0,
+        code: 200,
         msg: 'success',
         data: results // 记得添加数据到响应中
     }
@@ -58,7 +58,7 @@ export async function getSeason(env: Env): Promise<Response> {
     const seasonList = results.map(item => item.season)
 
     return {
-        code: 0,
+        code: 200,
         msg: 'success',
         data: seasonList
     }
