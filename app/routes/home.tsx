@@ -8,7 +8,7 @@ export function meta({}: Route.MetaArgs) {
   ];
 }
 
-export function loader({ context }: Route.LoaderArgs) {
+export function loader() {
   return { message: 'DWRG Tools - 第五人格数据查询工具' };
 }
 
