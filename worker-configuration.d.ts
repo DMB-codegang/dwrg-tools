@@ -3,7 +3,6 @@
 // Runtime types generated with workerd@1.20250906.0 2025-04-04 
 declare namespace Cloudflare {
 	interface Env {
-		VALUE_FROM_CLOUDFLARE: "Hello from Cloudflare";
 		dwrg_ranked_data: D1Database;
 	}
 }
