@@ -2,7 +2,13 @@ import type { RankQueryParams, RankedData, Response } from './type'
 import type { Env } from '../../type'
 
 export async function search(env: Env, params: RankQueryParams): Promise<Response> {
+    return sqlQuery(env, params)
+}
+
+async function sqlQuery(env: Env, params: RankQueryParams): Promise<Response> {
+
     try {
+
         // 构建动态 SQL 查询
         let sql = 'SELECT * FROM rank WHERE 1=1';
         const bindValues = [];
@@ -59,6 +65,7 @@ export async function search(env: Env, params: RankQueryParams): Promise<Respons
         const statement = env.dwrg_ranked_data.prepare(sql);
         const query = bindValues.length > 0 ? statement.bind(...bindValues) : statement;
         const { results } = await query.run() as { results: RankedData[] };
+
         return {
             code: 200,
             msg: "success",

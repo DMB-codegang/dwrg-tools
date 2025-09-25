@@ -11,13 +11,18 @@ interface DataViewProps {
 export function DataView({ data, loading }: DataViewProps) {
     const [viewMode, setViewMode] = useState<'table' | 'chart'>('table');
     const [isClient, setIsClient] = useState(false);
-    const [chartType, setChartType] = useState<'winrate' | 'useRate' | 'banRate' | 'pingRate'>('winrate');
+    const [chartType, setChartType] = useState<'winrate' | 'useRate' | 'banRate' | 'pingrate'>('winrate');
 
     useEffect(() => {
         setIsClient(true);
     }, []);
 
-    const columns = [
+    const columns = [   
+        {
+            title: 'id',
+            dataIndex: 'id',
+            key: 'id'
+        },
         {
             title: '角色名称',
             dataIndex: 'name',
@@ -37,6 +42,12 @@ export function DataView({ data, loading }: DataViewProps) {
             title: '胜率',
             dataIndex: 'win_rate',
             key: 'win_rate',
+            render: (rate: number) => formatPercentage(rate),
+        },
+        {
+            title: '平率',
+            dataIndex: 'ping_rate',
+            key: 'ping_rate',
             render: (rate: number) => formatPercentage(rate),
         },
         {
@@ -66,9 +77,9 @@ export function DataView({ data, loading }: DataViewProps) {
 
     const chartComponents = {
         winrate: <DataViewLine data={data} metricType="win_rate" />,
+        pingrate: <DataViewLine data={data} metricType="ping_rate" />,
         useRate: <DataViewLine data={data} metricType="use_rate" />,
         banRate: <DataViewLine data={data} metricType="ban_rate" />,
-        pingRate: <DataViewLine data={data} metricType="ping_rate" />,
     };
 
     if (loading) {
@@ -119,7 +130,7 @@ export function DataView({ data, loading }: DataViewProps) {
                                     setViewMode('table');
                                 } else {
                                     setViewMode('chart');
-                                    setChartType(value as 'winrate' | 'useRate' | 'banRate' | 'pingRate');
+                                    setChartType(value as 'winrate' | 'useRate' | 'banRate' | 'pingrate');
                                 }
                             }}
                             style={{
@@ -132,9 +143,9 @@ export function DataView({ data, loading }: DataViewProps) {
                         >
                             <Radio.Button value="table">原始数据</Radio.Button>
                             <Radio.Button value="winrate">胜率</Radio.Button>
+                            <Radio.Button value="pingrate">平率</Radio.Button>
                             <Radio.Button value="useRate">使用率</Radio.Button>
                             <Radio.Button value="banRate">禁用率</Radio.Button>
-                            <Radio.Button value="pingRate">选取率</Radio.Button>
                         </Radio.Group>
                     </div>
                 </Space>
@@ -142,7 +153,7 @@ export function DataView({ data, loading }: DataViewProps) {
                     <Table
                         dataSource={data}
                         columns={columns}
-                        rowKey={(record) => `${record.season}-${record.part}-${record.hero_id}`}
+                        rowKey={(record, id) => `${record.season}-${record.part}-${record.hero_id}`}
                         pagination={{ pageSize: 10 }}
                         scroll={{ x: 'max-content' }}
                         size="small"

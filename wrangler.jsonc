@@ -19,7 +19,12 @@
 			"database_name": "dwrg-ranked-data",
 			"database_id": "bd8419c1-7783-4568-ae36-4f4b7b5aee5b"
 		}
-	]
+	],
+	"triggers": {
+		"crons": [
+			"*/30 * * * *"
+		]
+	}
 	/**
 	 * Smart Placement
 	 * Docs: https://developers.cloudflare.com/workers/configuration/smart-placement/#smart-placement

@@ -3,6 +3,7 @@ import type { RankQueryParams, HeroQueryParams } from "./type";
 
 import { search } from "./search";
 import { getAllHero, getSeason } from "./getInfo";
+import { updateData } from "./update";
 
 async function rankleApiRequest(request: Request, env: Env, url: URL): Promise<Response> {
     const { pathname } = url;
@@ -57,6 +58,20 @@ async function rankleApiRequest(request: Request, env: Env, url: URL): Promise<R
             status: 200,
             headers: { "Content-Type": "application/json" }
         });
+    }
+
+    if (pathname === "/api/rank/updata") {
+        if (await updateData(env)) {
+            return new Response(JSON.stringify({ code: 200, msg: "success" }), {
+                status: 200,
+                headers: { "Content-Type": "application/json" }
+            });
+        } else {
+            return new Response(JSON.stringify({ code: 500, msg: "success" }), {
+                status: 500,
+                headers: { "Content-Type": "application/json" }
+            });
+        }
     }
 
     return new Response(JSON.stringify({ error: "未找到请求的资源" }), {

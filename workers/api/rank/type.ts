@@ -11,17 +11,21 @@ export interface RankQueryParams {
  * 排位数据
  */
 export interface RankedData {
-    name: string;
-    part: number;
-    season: number;
-    camp_id: 1|2;
-    hero_id: number
-    start_time: string
-    end_time: string
-    win_rate: number
-    ping_rate: number
-    use_rate: number
-    ban_rate: number
+  id: number;
+  name: string;
+  run_rate: number | null;
+  start_time: string;
+  ping_rate: number;
+  ban_rate: number;
+  part: number;
+  use_rate: number;
+  end_time: string;
+  season: string;
+  camp_id: 1|2;
+  hero_id: string;
+  win_rate: number;
+  position: string;
+  week_num: string;
 }
 
 
@@ -51,4 +55,16 @@ export interface Response {
     code: number;
     msg: string;
     data?: RankedData[] | HeroData[] | SeasonList;
+}
+
+
+/*
+ * 网易api定义
+ */
+export interface HeroStatsResponse {
+  status: boolean;
+  success: boolean;
+  code: number;
+  msg: string;
+  data: RankedData[];
 }

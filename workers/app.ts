@@ -2,6 +2,7 @@ import { createRequestHandler } from "react-router";
 import type { Env } from "./type";
 
 import rankleApiRequest from "./api/rank/index"
+import { updateData } from "./api/rank/update";
 
 declare module "react-router" {
   export interface AppLoadContext {
@@ -18,7 +19,7 @@ const requestHandler = createRequestHandler(
 );
 
 export default {
-  async fetch(request, env, ctx) {
+  async fetch(request, env, ctx: ExecutionContext) {
     const url = new URL(request.url);
     
     if (url.pathname.startsWith('/api/') && url.pathname !== '/api') {
@@ -29,4 +30,8 @@ export default {
       cloudflare: { env, ctx },
     });
   },
+
+  async scheduled(controller: ScheduledController, env: Env, ctx: ExecutionContext) {
+    await updateData(env);
+  }
 } satisfies ExportedHandler<Env>;

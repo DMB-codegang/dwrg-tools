@@ -20,6 +20,8 @@ export const links: Route.LinksFunction = () => [
   {
     rel: "stylesheet",
     href: "/google-font.css",
+    media: "print",
+    onLoad: "this.media='all'"
   },
 ];
 
