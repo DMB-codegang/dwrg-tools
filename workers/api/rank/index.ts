@@ -15,7 +15,9 @@ async function rankleApiRequest(request: Request, env: Env, url: URL): Promise<R
                 name: url.searchParams.get("name") || undefined,
                 part: url.searchParams.get("part") || undefined,
                 season: url.searchParams.get("season") || undefined,
-                camp_id: url.searchParams.has("camp_id") ? Number(url.searchParams.get("camp_id")) as 1 | 2 : 0
+                week_num: url.searchParams.get("week_num") || undefined,
+                camp_id: url.searchParams.has("camp_id") ? Number(url.searchParams.get("camp_id")) as 0 | 1 | 2 : 0,
+                onlyLatest: url.searchParams.get("onlyLatest") === "false" ? false : true
             };
 
             return new Response(JSON.stringify(await search(env, params)), {

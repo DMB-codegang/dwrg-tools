@@ -5,7 +5,9 @@ export interface RankQueryParams {
   name?: string;
   part?: string;
   season?: string;
+  week_num?: string;
   camp_id?: 0|1|2;
+  onlyLatest?: boolean;
 }
 /**
  * 排位数据

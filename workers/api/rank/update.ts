@@ -19,7 +19,11 @@ export async function updateData(env: Env): Promise<boolean> {
             let newdataNum = 0
             let updataNum = 0
             let keepNum = 0
-            let [updatesql, insertsql] = ['', ''];
+            let [updatesql, insertsql] = [
+                ``,
+                `INSERT INTO rank
+                    (name, run_rate, start_time, ping_rate, ban_rate, part, use_rate, end_time, season, camp_id, hero_id, win_rate, position, week_num) 
+                    VALUES `];
             const updateBindValues = [];
             const insertBindValues = [];
             for (let item of newData) {
@@ -32,10 +36,8 @@ export async function updateData(env: Env): Promise<boolean> {
                 ).run() as { results: RankedData[] };
                 if (results.length === 0) {
                     newdataNum++
-                    insertsql += `INSERT INTO rank
-                        (name, run_rate, start_time, ping_rate, ban_rate, part, use_rate, end_time, season, camp_id, hero_id, win_rate, position, week_num) 
-                        VALUES 
-                        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`;
+                    insertsql += insertBindValues.length === 0 ? '' : ','
+                    insertsql += `(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
                     insertBindValues.push(
                         item.name, item.run_rate, item.start_time, item.ping_rate,
                         item.ban_rate, item.part, item.use_rate, item.end_time,
@@ -57,6 +59,15 @@ export async function updateData(env: Env): Promise<boolean> {
                     }
                 } else {
                     console.error(`数据重复，重复数据：` + results)
+                }
+
+                // 如果插入语句达到50条就执行语句并复位变量
+                if (insertBindValues.length > 50) {
+                    await env.dwrg_ranked_data.prepare(insertsql).bind(...insertBindValues).run()
+                    insertsql = `INSERT INTO rank
+                        (name, run_rate, start_time, ping_rate, ban_rate, part, use_rate, end_time, season, camp_id, hero_id, win_rate, position, week_num) 
+                        VALUES `;
+                    insertBindValues.length = 0;
                 }
             }
             if (insertsql.length > 0) {
